@@ -217,16 +217,19 @@
     .hero-video-wrap video {
       width: 100%; height: 100%;
       object-fit: cover;
-      opacity: 0.6;
+      opacity: 1;
     }
-    /* Fallback poster khi video chưa load */
+    /* Fallback poster — chỉ hiện khi video chưa load, nằm dưới video */
     .hero-poster {
       position: absolute;
       inset: 0;
+      z-index: 0;
       background-image: url('./images/gallery-1.jpg');
       background-size: cover;
       background-position: center;
-      opacity: 0.55;
+    }
+    .hero-video-wrap {
+      z-index: 1;
     }
     .hero-overlay {
       position: absolute;
@@ -1106,11 +1109,11 @@
        1. HERO VIDEO
   ============================================ -->
   <section id="hero">
+    <div class="hero-poster"></div>
     <div class="hero-video-wrap">
-      <video autoplay muted loop playsinline poster="./images/gallery-1.jpg">
+      <video autoplay muted loop playsinline>
         <source src="./videos/hero-drone.mp4" type="video/mp4">
       </video>
-      <div class="hero-poster"></div>
     </div>
     <div class="hero-overlay"></div>
 
