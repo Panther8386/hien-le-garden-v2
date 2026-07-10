@@ -113,12 +113,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background var(--transition), box-shadow var(--transition);
+      transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
     }
     #navbar.scrolled {
-      background: rgba(244,249,244,0.96);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-      backdrop-filter: blur(12px);
+      background: rgba(244,249,244,0.97);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.09);
+      backdrop-filter: blur(14px);
+      padding: 0.55rem var(--spacing-md);
     }
     .nav-logo {
       font-family: var(--font-serif);
@@ -149,18 +150,44 @@
     }
     .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
     .nav-links a.active { color: var(--accent-gold); }
-    .nav-cta {
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.5);
-      padding: 0.55rem 1.25rem;
-      border-radius: var(--radius-sm);
-      transition: all var(--transition);
+    /* CTA group — ẩn trước scroll, hiện khi scrolled */
+    .nav-cta-group {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
-    #navbar.scrolled .nav-cta { color: var(--accent-emerald); border-color: var(--accent-emerald); }
-    .nav-cta:hover { background: var(--accent-emerald); color: #fff; border-color: var(--accent-emerald); }
+    #navbar.scrolled .nav-cta-group {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .nav-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.42rem 0.95rem;
+      border-radius: 50px;
+      font-family: var(--font-sans);
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: all 0.22s ease;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .nav-btn-book { background: var(--accent-gold); color: #1A3326; }
+    .nav-btn-book:hover { background: var(--accent-gold-lt); color: #1A3326; }
+    .nav-btn-call { background: #10B981; color: #fff; }
+    .nav-btn-call:hover { background: #059669; color: #fff; }
+    .nav-btn-zalo { background: #0068FF; color: #fff; }
+    .nav-btn-zalo:hover { background: #0052CC; color: #fff; }
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .nav-hamburger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: all var(--transition); }
     #navbar.scrolled .nav-hamburger span { background: var(--text-primary); }
@@ -193,8 +220,11 @@
     }
 
     @media (max-width: 768px) {
-      .nav-links, .nav-cta-desktop { display: none; }
+      .nav-links { display: none; }
       .nav-hamburger { display: flex; }
+      .nav-cta-group { gap: 0.3rem; }
+      .nav-cta-btn { padding: 0.42rem 0.55rem; border-radius: 50%; width: 34px; height: 34px; justify-content: center; }
+      .nav-btn-label { display: none; }
     }
 
     /* ============================================
@@ -1215,7 +1245,17 @@
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
-    <a href="tel:0968987311" class="nav-cta nav-cta-desktop">📞 0968 987 311</a>
+    <div class="nav-cta-group">
+      <a href="#booking" class="nav-cta-btn nav-btn-book">
+        <span>📅</span><span class="nav-btn-label">Đặt phòng</span>
+      </a>
+      <a href="tel:0968987311" class="nav-cta-btn nav-btn-call">
+        <span>📞</span><span class="nav-btn-label">Gọi ngay</span>
+      </a>
+      <a href="https://zalo.me/0968987311" class="nav-cta-btn nav-btn-zalo" target="_blank" rel="noopener noreferrer">
+        <span>💬</span><span class="nav-btn-label">Zalo</span>
+      </a>
+    </div>
     <button class="nav-hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
