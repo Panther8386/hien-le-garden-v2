@@ -41,6 +41,30 @@
       --transition-slow: 0.6s ease;
     }
 
+    /* ============================================
+       DARK MODE
+    ============================================ */
+    [data-theme="dark"] {
+      --bg-primary:    #0D1F14;
+      --bg-secondary:  #091510;
+      --bg-surface:    #132A1B;
+      --accent-gold:   #D4AE5A;
+      --accent-gold-lt:#E8C96A;
+      --text-primary:  #EDF5EE;
+      --text-muted:    #8BB89C;
+      --text-dim:      #527464;
+      --border-subtle: rgba(255,255,255,0.07);
+      --border-gold:   rgba(212,174,90,0.35);
+      color-scheme: dark;
+    }
+    [data-theme="dark"] #navbar.scrolled {
+      background: rgba(11,26,16,0.97);
+    }
+    [data-theme="dark"] .bm-field input,
+    [data-theme="dark"] .bm-field select {
+      color-scheme: dark;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
@@ -50,6 +74,7 @@
       font-weight: 300;
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
     img { display: block; max-width: 100%; height: auto; }
     a { color: inherit; text-decoration: none; }
@@ -229,6 +254,31 @@
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .nav-hamburger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: all var(--transition); }
     #navbar.scrolled .nav-hamburger span { background: var(--text-primary); }
+    .theme-toggle {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 0.3s ease, background 0.3s ease, transform 0.35s ease;
+      line-height: 1;
+    }
+    .theme-toggle:hover {
+      border-color: var(--accent-gold);
+      background: rgba(201,168,76,0.14);
+      transform: rotate(22deg) scale(1.08);
+    }
+    #navbar.scrolled .theme-toggle {
+      border-color: var(--border-subtle);
+      background: var(--bg-secondary);
+    }
+    [data-theme="dark"] .theme-toggle { border-color: rgba(255,255,255,0.18); }
+    [data-theme="dark"] #navbar.scrolled .theme-toggle { background: rgba(255,255,255,0.05); }
     .nav-mobile-overlay {
       display: none;
       position: fixed;
@@ -1787,6 +1837,9 @@
         <span>💬</span><span class="nav-btn-label">Zalo</span>
       </a>
     </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Chuyển chế độ tối/sáng" title="Dark / Light mode">
+      <span id="themeIcon">🌙</span>
+    </button>
     <button class="nav-hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -2600,6 +2653,35 @@
   </footer>
 
   <script>
+    // ============================================================
+    // DARK MODE TOGGLE
+    // ============================================================
+    (function initDarkMode() {
+      const html = document.documentElement;
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const saved = localStorage.getItem('hlg-theme') || (prefersDark ? 'dark' : 'light');
+
+      function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        const icon = document.getElementById('themeIcon');
+        if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('hlg-theme', theme);
+      }
+
+      applyTheme(saved);
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('themeToggle');
+        if (!btn) return;
+        const icon = document.getElementById('themeIcon');
+        icon.textContent = saved === 'dark' ? '☀️' : '🌙';
+        btn.addEventListener('click', () => {
+          const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          applyTheme(next);
+        });
+      });
+    })();
+
     // ============================================================
     // COUNTDOWN — Ưu đãi cuối tuần (đến hết Chủ nhật 23:59:59)
     // ============================================================
