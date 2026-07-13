@@ -1677,6 +1677,88 @@
       .bm-field.full { grid-column: 1; }
       .bm-contact-btns { grid-template-columns: 1fr; }
     }
+
+    /* ============================================
+       OTA — Online Travel Agencies
+    ============================================ */
+    #ota { background: var(--bg-primary); }
+    .ota-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+    .ota-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem 1.25rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      min-height: 148px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  box-shadow 0.32s ease;
+    }
+    .ota-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background 0.32s ease;
+    }
+    .ota-card:hover { transform: translateY(-8px); }
+    .ota-card:hover::after { background: rgba(255,255,255,0.07); }
+
+    .ota-booking   { background: #003B95; box-shadow: 0 8px 24px rgba(0,59,149,0.22); }
+    .ota-booking:hover   { box-shadow: 0 22px 52px rgba(0,59,149,0.38); }
+    .ota-agoda     { background: #D0021B; box-shadow: 0 8px 24px rgba(208,2,27,0.22); }
+    .ota-agoda:hover     { box-shadow: 0 22px 52px rgba(208,2,27,0.38); }
+    .ota-traveloka { background: #0064D2; box-shadow: 0 8px 24px rgba(0,100,210,0.22); }
+    .ota-traveloka:hover { box-shadow: 0 22px 52px rgba(0,100,210,0.38); }
+    .ota-airbnb    { background: #FF5A5F; box-shadow: 0 8px 24px rgba(255,90,95,0.22); }
+    .ota-airbnb:hover    { box-shadow: 0 22px 52px rgba(255,90,95,0.38); }
+
+    .ota-logotype { text-align: center; position: relative; z-index: 1; }
+    .ota-lt-main {
+      display: block;
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .ota-lt-ext {
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0;
+    }
+    .ota-tag {
+      position: relative;
+      z-index: 1;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 0.75rem;
+      width: 100%;
+      text-align: center;
+      transition: color 0.28s ease;
+    }
+    .ota-card:hover .ota-tag { color: rgba(255,255,255,0.95); }
+
+    @media (max-width: 768px) {
+      .ota-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 400px) {
+      .ota-grid { grid-template-columns: 1fr; }
+      .ota-card { min-height: 110px; padding: 1.5rem 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -2272,6 +2354,50 @@
             </div>
           </div>
         </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       OTA — Đặt Phòng Trực Tuyến
+  ============================================ -->
+  <section class="section" id="ota">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="label">Đặt Phòng Trực Tuyến · Book Online</span>
+        <h2>Tìm Chúng Tôi Trên</h2>
+        <p>Đặt phòng qua các nền tảng uy tín — đảm bảo quyền lợi và chính sách hủy linh hoạt.</p>
+      </div>
+      <div class="ota-grid fade-in">
+
+        <a href="https://www.booking.com/searchresults.vi.html?ss=Hien+Le+Garden+Lam+Dong" target="_blank" rel="noopener noreferrer" class="ota-card ota-booking">
+          <div class="ota-logotype">
+            <span class="ota-lt-main">booking<span class="ota-lt-ext">.com</span></span>
+          </div>
+          <span class="ota-tag">Xem trên Booking →</span>
+        </a>
+
+        <a href="https://www.agoda.com/search?city=Gia+Nghia&searchText=Hien+Le+Garden" target="_blank" rel="noopener noreferrer" class="ota-card ota-agoda">
+          <div class="ota-logotype">
+            <span class="ota-lt-main">agoda</span>
+          </div>
+          <span class="ota-tag">Xem trên Agoda →</span>
+        </a>
+
+        <a href="https://www.traveloka.com/vi-vn/hotel/vietnam" target="_blank" rel="noopener noreferrer" class="ota-card ota-traveloka">
+          <div class="ota-logotype">
+            <span class="ota-lt-main">Traveloka</span>
+          </div>
+          <span class="ota-tag">Xem trên Traveloka →</span>
+        </a>
+
+        <a href="https://www.airbnb.com/s/Gia-Nghia--Vietnam/homes" target="_blank" rel="noopener noreferrer" class="ota-card ota-airbnb">
+          <div class="ota-logotype">
+            <span class="ota-lt-main">airbnb</span>
+          </div>
+          <span class="ota-tag">Xem trên Airbnb →</span>
+        </a>
 
       </div>
     </div>
